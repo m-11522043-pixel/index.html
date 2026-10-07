@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Little Surprise 💌</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffe4ec, #fff5f8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: "Poppins", Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        /* Floating hearts */
+        .heart {
+            position: absolute;
+            color: #ff7fa3;
+            font-size: 20px;
+            animation: float 6s linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0.5);
+                opacity: 0;
+            }
+
+            20% {
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateY(-10vh) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 5;
+        }
+
+        .title {
+            color: #d94f78;
+            margin-bottom: 30px;
+            font-size: 25px;
+            letter-spacing: 1px;
+        }
+
+        /* Envelope */
+        .envelope {
+            width: 320px;
+            height: 210px;
+            background: #ff91ae;
+            position: relative;
+            margin: auto;
+            cursor: pointer;
+            border-radius: 5px;
+            box-shadow: 0 15px 35px rgba(180, 80, 110, 0.25);
+            transition: 0.3s;
+        }
+
+        .envelope:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Front triangle */
+        .envelope::before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-bottom: 115px solid #ffb0c5;
+            z-index: 3;
+        }
+
+        /* Top flap */
+        .flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 115px solid #ff6f96;
+            transform-origin: top;
+            transition: 1s;
+            z-index: 4;
+        }
+
+        /* Letter */
+        .letter {
+            position: absolute;
+            width: 280px;
+            min-height: 230px;
+            background: #fffdfd;
+            left: 20px;
+            bottom: 10px;
+            padding: 25px 20px;
+            border-radius: 5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.12);
+            transition: 1s;
+            z-index: 2;
+            opacity: 0;
+        }
+
+        .letter h2 {
+            color: #d94f78;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .letter p {
+            color: #555;
+            line-height: 1.7;
+            font-size: 14px;
+        }
+
+        .signature {
+            margin-top: 18px;
+            color: #d94f78;
+            font-weight: bold;
+        }
+
+        /* Open animation */
+        .envelope.open .flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .envelope.open .letter {
+            transform: translateY(-170px);
+            opacity: 1;
+            z-index: 5;
+        }
+
+        .envelope.open {
+            margin-top: 170px;
+        }
+
+        .instruction {
+            margin-top: 35px;
+            color: #b85b78;
+            font-size: 14px;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Big final message */
+        .final-message {
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 230, 238, 0.96);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 20;
+            opacity: 0;
+            pointer-events: none;
+            transition: 1s;
+            padding: 30px;
+        }
+
+        .final-message.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .final-message h1 {
+            color: #d94f78;
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+
+        .final-message p {
+            color: #555;
+            max-width: 500px;
+            line-height: 1.8;
+        }
+
+        .close-btn {
+            margin-top: 25px;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 25px;
+            background: #ff7fa3;
+            color: white;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        @media (max-width: 500px) {
+            .envelope {
+                width: 280px;
+            }
+
+            .envelope::before {
+                border-left-width: 140px;
+                border-right-width: 140px;
+            }
+
+            .flap {
+                border-left-width: 140px;
+                border-right-width: 140px;
+            }
+
+            .letter {
+                width: 245px;
+                left: 17px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Floating hearts -->
+    <div class="heart" style="left:10%; animation-delay:0s;">♡</div>
+    <div class="heart" style="left:25%; animation-delay:2s;">♥</div>
+    <div class="heart" style="left:45%; animation-delay:4s;">♡</div>
+    <div class="heart" style="left:65%; animation-delay:1s;">♥</div>
+    <div class="heart" style="left:85%; animation-delay:3s;">♡</div>
+
+    <div class="container">
+
+        <div class="title">
+            💌 A Little Surprise For You 💌
+        </div>
+
+        <div class="envelope" id="envelope" onclick="openLetter()">
+
+            <div class="flap"></div>
+
+            <div class="letter">
+                <h2>To Someone Special 🌷</h2>
+
+                <p>
+                    Hi alyaa! ♡
+                    <br><br>
+                    pegi studyy makanggg jangann tidoo ✨
+                </p>
+
+                <div class="signature">
+                    — From someone who kuat tido💗
+                </div>
+            </div>
+
+        </div>
+
+        <div class="instruction" id="instruction">
+            ✨ Click the envelope to open ✨
+        </div>
+
+    </div>
+
+    <!-- Final surprise -->
+    <div class="final-message" id="finalMessage">
+
+        <div style="font-size:70px;">💗</div>
+
+        <h1>One More Thing...</h1>
+
+        <p>
+            No matter what happens, I hope you keep smiling.
+            You deserve lots of happiness, good memories,
+            and beautiful moments. 🌸
+            <br><br>
+            Take care of yourself, okay? ♡
+        </p>
+
+        <button class="close-btn" onclick="closeMessage()">
+            Close 💌
+        </button>
+
+    </div>
+
+
+    <script>
+
+        let opened = false;
+
+        function openLetter() {
+
+            if (opened) return;
+
+            opened = true;
+
+            const envelope = document.getElementById("envelope");
+            const instruction = document.getElementById("instruction");
+
+            envelope.classList.add("open");
+
+            instruction.innerHTML =
+                "💗 Read it slowly... it's for you 💗";
+
+            // Show final message after a few seconds
+            setTimeout(() => {
+
+                document
+                    .getElementById("finalMessage")
+                    .classList.add("show");
+
+            }, 6500);
+        }
+
+
+        function closeMessage() {
+
+            document
+                .getElementById("finalMessage")
+                .classList.remove("show");
+
+        }
+
+    </script>
+
+</body>
+</html>
